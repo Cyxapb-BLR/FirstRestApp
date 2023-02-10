@@ -1,15 +1,14 @@
 package com.matskevich.springcourse.FirstRestApp.controller;
 
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController // @Controller + @ResponseBody over each method
 @RequestMapping("/api")
 public class FirstRESTController {
 
-    @ResponseBody   // get data, no views
+       // get data, no views
     @GetMapping("/sayHello")
     public String sayHello() {
         return "Hello world";   // return data
