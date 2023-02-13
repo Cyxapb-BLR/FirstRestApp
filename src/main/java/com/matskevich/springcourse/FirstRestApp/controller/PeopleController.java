@@ -15,17 +15,18 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
 @RequestMapping("/people")
 public class PeopleController {
     private final PeopleService peopleService;
+    private final ModelMapper modelMapper;
 
     @Autowired
-    public PeopleController(PeopleService peopleService) {
+    public PeopleController(PeopleService peopleService, ModelMapper modelMapper) {
         this.peopleService = peopleService;
+        this.modelMapper = modelMapper;
     }
 
     @GetMapping()
@@ -81,7 +82,6 @@ public class PeopleController {
     }
 
     private Person convertToPerson(PersonDTO personDTO) {
-        ModelMapper modelMapper = new ModelMapper();
         return modelMapper.map(personDTO, Person.class);
     }
 }
