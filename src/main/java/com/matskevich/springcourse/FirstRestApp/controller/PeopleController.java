@@ -1,5 +1,6 @@
 package com.matskevich.springcourse.FirstRestApp.controller;
 
+import com.matskevich.springcourse.FirstRestApp.dto.PersonDTO;
 import com.matskevich.springcourse.FirstRestApp.models.Person;
 import com.matskevich.springcourse.FirstRestApp.services.PeopleService;
 import com.matskevich.springcourse.FirstRestApp.util.PersonErrorResponse;
@@ -13,6 +14,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -36,7 +38,7 @@ public class PeopleController {
     }
 
     @PostMapping
-    public ResponseEntity<HttpStatus> create(@RequestBody @Valid Person person,
+    public ResponseEntity<HttpStatus> create(@RequestBody @Valid PersonDTO personDTO,
                                              BindingResult bindingResult) { // or  public Person create(...)
         if (bindingResult.hasErrors()) {
             StringBuilder errorMsg = new StringBuilder();
@@ -49,7 +51,7 @@ public class PeopleController {
             }
             throw new PersonNotCreatedException(errorMsg.toString());
         }
-        peopleService.save(person);
+        peopleService.save(convertToPerson(personDTO));
 
         //sent HTTp response with empty body, status 200
         return ResponseEntity.ok(HttpStatus.OK);
@@ -75,5 +77,15 @@ public class PeopleController {
 
         // in HTTP response: response body and status in title
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);    // BAD_REQUEST - 400 Status
+    }
+
+    private Person convertToPerson(PersonDTO personDTO) {
+        Person person = new Person();
+
+        person.setName(personDTO.getName());
+        person.setAge(personDTO.getAge());
+        person.setEmail(personDTO.getEmail());
+
+        return person;
     }
 }

@@ -14,3 +14,8 @@ INSERT INTO Person(name, age, email)
 VALUES ('Katy', 25, 'katy@gmail.com');
 
 TRUNCATE TABLE Person;
+
+ALTER TABLE Person
+    ADD COLUMN created_at  timestamp,
+    ADD COLUMN updated_at  timestamp,
+    ADD COLUMN created_who varchar;
