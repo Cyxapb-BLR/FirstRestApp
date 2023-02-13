@@ -6,6 +6,7 @@ import com.matskevich.springcourse.FirstRestApp.services.PeopleService;
 import com.matskevich.springcourse.FirstRestApp.util.PersonErrorResponse;
 import com.matskevich.springcourse.FirstRestApp.util.PersonNotCreatedException;
 import com.matskevich.springcourse.FirstRestApp.util.PersonNotFoundException;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -80,12 +81,7 @@ public class PeopleController {
     }
 
     private Person convertToPerson(PersonDTO personDTO) {
-        Person person = new Person();
-
-        person.setName(personDTO.getName());
-        person.setAge(personDTO.getAge());
-        person.setEmail(personDTO.getEmail());
-
-        return person;
+        ModelMapper modelMapper = new ModelMapper();
+        return modelMapper.map(personDTO, Person.class);
     }
 }
