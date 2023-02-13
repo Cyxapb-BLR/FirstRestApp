@@ -12,3 +12,5 @@ INSERT INTO Person(name, age, email)
 VALUES ('Bob', 51, 'bob@gmail.com');
 INSERT INTO Person(name, age, email)
 VALUES ('Katy', 25, 'katy@gmail.com');
+
+TRUNCATE TABLE Person;
